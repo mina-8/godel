@@ -1,17 +1,16 @@
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { router, useForm } from '@inertiajs/react';
+import InputLabel from "@/Components/InputLabel";
+import PrimaryButton from "@/Components/PrimaryButton";
+import TextInput from "@/Components/TextInput";
+import { router, useForm } from "@inertiajs/react";
 
-import React, { FormEventHandler, useEffect, useRef, useState } from 'react'
-import Resumable from 'resumablejs';
-import "../../../css/dropzone.css"
-import axios from 'axios';
-import { Button } from 'antd';
-import Dropzone from 'react-dropzone'
+import React, { FormEventHandler, useEffect, useRef, useState } from "react";
+import Resumable from "resumablejs";
+import "../../../css/dropzone.css";
+import axios from "axios";
+import { Button } from "antd";
+import Dropzone from "react-dropzone";
 // import Dropzone from 'react-dropzone-uploader'
-import ChunkUpload from 'react-native-chunk-upload';
-
+import ChunkUpload from "react-native-chunk-upload";
 
 function TeacherVideos() {
     // const {data ,  setData , post  , processing} = useForm({
@@ -45,38 +44,36 @@ function TeacherVideos() {
     //     // formdata.append("name" ,filedata);
     //     // router.post(route("store.video") , formdata)
 
-
     // }
-/******************************************** */
+    /******************************************** */
     // handel upload files with dropzone
-    const handelUpload = async(file : File)=>{
-        const chunkSize = 1024 * 1024 ; // 1MB
+    const handelUpload = async (file: File) => {
+        const chunkSize = 1024 * 1024; // 1MB
         const totalChunks = Math.ceil(file.size / chunkSize);
         const chunkPromises = [];
 
         // handel chunk file
-        for(let i = 0 ; i < totalChunks; i++){
+        for (let i = 0; i < totalChunks; i++) {
             const start = i * chunkSize;
-            const end = Math.min(start + chunkSize , file.size);
-            const chunk = file.slice(start , end);
-            const data = {file , chunk}
+            const end = Math.min(start + chunkSize, file.size);
+            const chunk = file.slice(start, end);
+            const data = { file, chunk };
             const formdata = new FormData();
             // formdata.append("file" , chunk);
-            formdata.append('chunk' , chunk)
+            formdata.append("chunk", chunk);
             console.log(data);
-            const promise = router.post(route("file-upload") ,formdata);
-
+            const promise = router.post(route("file-upload"), formdata);
 
             chunkPromises.push(promise);
         }
 
         await Promise.all(chunkPromises);
-    }
-/********************************************* */
+    };
+    /********************************************* */
 
-  return (
-    <>
-    {/*<form onSubmit={submit} >
+    return (
+        <>
+            {/*<form onSubmit={submit} >
         <div>
             <TextInput
                 id="file"
@@ -95,22 +92,21 @@ function TeacherVideos() {
 
   </form>*/}
 
-     <Dropzone
-
-    onDrop={(acceptedFiles)=> handelUpload(acceptedFiles[0])}
-    >
-        {({getRootProps , getInputProps}) =>(
-            <div {...getRootProps()} >
-                <input {...getInputProps} />
-                <p className='dropzone'>Drag and Drop a file here OR <br></br> click to select a file</p>
-            </div>
-        )}
-    </Dropzone>
-
-
-
-</>
-  )
+            <Dropzone
+                onDrop={(acceptedFiles) => handelUpload(acceptedFiles[0])}
+            >
+                {({ getRootProps, getInputProps }) => (
+                    <div {...getRootProps()}>
+                        <input {...getInputProps} />
+                        <p className="dropzone">
+                            Drag and Drop a file here OR <br></br> click to
+                            select a file
+                        </p>
+                    </div>
+                )}
+            </Dropzone>
+        </>
+    );
 }
 
-export default TeacherVideos
+export default TeacherVideos;
