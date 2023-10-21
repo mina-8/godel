@@ -13,8 +13,15 @@ return new class extends Migration
     {
         Schema::create('videos', function (Blueprint $table) {
             $table->id();
-            $table->string("video");
+            $table->foreignId("unit_id")->constrained("units")->references("id")->onUpdate("cascade")->onDelete("cascade");
             $table->foreignId("teacher_id")->constrained("teachers")->references("id")->onUpdate("cascade")->onDelete("cascade");
+            $table->string("title_video");
+            $table->string("description_video");
+            $table->string("path_video");
+            $table->string("cover_video");
+            $table->enum("privacy_video" , ["public" , "one" ,"tow"]);
+            $table->string("exam_video")->nullable();
+            $table->bigInteger("price_video");
             $table->timestamps();
         });
     }

@@ -10,14 +10,22 @@ class Video extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "video",
-        "teacher_id"
+        "unit_id",
+        "teacher_id",
+        "title_video",
+        "description_video",
+        "path_video",
+        "cover_video",
+        "privacy_video",
+        "exam_video",
+        "price_video"
     ];
+    public function unit(){
+        return $this->belongsTo(Unit::class , "unit_id");
+    }
+
     public function teacher(){
         return $this->belongsTo(Teacher::class , "teacher_id");
-       }
-       public function getVideoAttribute($value){
-        // return $this->$value = Storage::url($value);
-        return $value;
-       }
+    }
+
 }

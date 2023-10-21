@@ -1,10 +1,13 @@
-import React from 'react'
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
+import React, { useState } from 'react'
 import { PageProps } from '@/types';
-import TeacherVideos from './videos/TeacherVideos';
-import ShowVideo from './videos/ShowVideo';
-function Videos({auth , videos } : PageProps) {
+import { Head } from '@inertiajs/react';
+
+import Editidvideo from './Editidvideo';
+
+
+function Editvideo({auth , editvideo } : PageProps) {
+
   return (
     <AuthenticatedLayout
             user={auth.user}
@@ -17,9 +20,10 @@ function Videos({auth , videos } : PageProps) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
-                            <div>my video</div>
-                            <TeacherVideos />
-                            <ShowVideo videos={videos}/>
+
+
+                            <Editidvideo editvideos={editvideo}/>
+
                         </div>
                     </div>
                 </div>
@@ -28,4 +32,4 @@ function Videos({auth , videos } : PageProps) {
   )
 }
 
-export default Videos
+export default Editvideo

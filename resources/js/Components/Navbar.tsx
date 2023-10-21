@@ -44,6 +44,9 @@ function Navbar({userlog}:any) {
                             <Link href={route("teacher.video")}>my videos</Link>
                         </Button>
                         <Button size={size}>
+                            <Link href={route("index.phase")}>my Corses</Link>
+                        </Button>
+                        <Button size={size}>
                             <Link href="">my codes</Link>
                         </Button>
 

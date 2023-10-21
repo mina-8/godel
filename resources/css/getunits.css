@@ -1,0 +1,7 @@
+.col_unit{
+    width: 200px;
+    border: 1px solid #0092ff;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+}

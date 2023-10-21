@@ -17,9 +17,11 @@ class VideoController extends Controller
      */
     public function index()
     {
-        $user = Auth::guard("teacher")->user()->id;
-        $videos = Video::where("teacher_id" , $user)->with("teacher")->get();
-        return Inertia::render("Videos" , ["videos"=>$videos]);
+        // $user = Auth::guard("teacher")->user()->id;
+        // $videos = Video::where("teacher_id" , $user)->with("teacher")->get();
+        // return Inertia::render("Videos" , ["videos"=>$videos]);
+        // return Inertia::render("units/Teacherunitvideos" , ["videos"=>$videos] );
+        return "mina";
     }
 
     /**
@@ -36,49 +38,49 @@ class VideoController extends Controller
 
     public function store(Request $request)
     {
-        return request();
-
-        // $validate = $request->validate([
-        //     "file" => "required|file"
-        // ]);
-
-        // $data = request()->file($request["name"])->store("video/" . Auth::guard('teacher')->user()->id);
-        // // //$content = request()->file("file");
-        // // //$data = Storage::disk('s3')->put("video/" . Auth::guard('teacher')->user()->id , $content);
-        // $url = Storage::url($data);
-        // Video::create([
-        //     "video" => $url,
-        //     "teacher_id" => Auth::guard('teacher')->user()->id
-        // ]);
-        // return Redirect::route("teacher.video");
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Video $video)
+    public function show(string $id)
     {
-        // $user = Auth::guard("teacher")->user()->id;
-        // $videos = Video::where("teacher_id" , $user)->with("teacher")->get();
-
-        // // return Inertia::render("Dashboardteacher" , ["posts"=>$posts ]);
-        // return Inertia::render("ShowVideo" , ["videos"=>$videos]);
+        $video = Video::where("id" , $id)->get();
+        return Inertia::render("videos/Videos" , ["video"=>$video]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Video $video)
+    public function edit(string $id)
     {
-        //
+        $video = Video::where("id" , $id)->get();
+        return Inertia::render("videos/Editvideo" , ["editvideo"=>$video]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Video $video)
+    public function update(Request $request)
     {
-        //
+        $user = Auth::guard("teacher")->user()->id;
+        $validate = $request->validate([
+            "title_video" => "required",
+            "Description_video" => "required" ,
+            "privacy_video" => "required" ,
+            "exam_video" => "required" ,
+            "price_video" => "required"
+        ]);
+        Video::where("id" , $request["id"])->where("teacher_id" , $user)->update([
+            "title_video" => $validate["title_video"] ,
+            "description_video" => $validate["Description_video"] ,
+            "privacy_video" => $validate["privacy_video"] ,
+            "exam_video" => $validate["exam_video"] ,
+            "price_video" => $validate["price_video"]["number"]
+        ]);
+        $video = Video::where("id" ,$request["id"])->get();
+        return Inertia::render("videos/Videos" , ["video"=>$video]);
     }
 
     /**
@@ -86,16 +88,14 @@ class VideoController extends Controller
      */
     public function destroy(Request $request)
     {
-
+        $user = Auth::guard("teacher")->user()->id;
         $video = video::find($request["id"]);
-        // $baseStorageUrl = Storage::url("/");
-        // $path = str_replace($baseStorageUrl , "" , $video->video);
-        // if(!empty($video->video) && Storage::exists($path)){
-        //     Storage::delete($path);
+        $url_path = explode("/", $video->path_video);
 
-        // }
-        Storage::delete($video->video);
-        video::destroy($video->id);
+        if (!empty($video->path_video) && Storage::disk('s3')->exists("public/upload/medialibrary/" . $user . "/" . end($url_path) )) {
+            Storage::disk("s3")->delete("public/upload/medialibrary/" . $user . "/" . end($url_path) );
+            video::destroy($video->id);
+        }
 
     }
 }

@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\PhaseController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\UnitController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -67,17 +69,33 @@ Route::middleware(["auth:teacher" , "verified"])->prefix("teacher/dashboard")->g
     Route::post("post/{id}" , [PostController::class , "destroy"])->name("delete.post");
     Route::post("post" , [PostController::class , "store"])->name("store.post");
 
+    //phase teacher
+    Route::get("phase" , [PhaseController::class , "index"])->name("index.phase");
+    Route::get("showphase/{id}" , [PhaseController::class , "show"])->name("show.phase");
+    Route::post("postphase" , [PhaseController::class , "store"])->name("store.phase");
+
+
+
+    //units teacher
+    Route::get("corses" , [UnitController::class , "index"])->name("index.unit");
+    Route::get("showunit/{id}" , [UnitController::class , "show"])->name("show.unit");
+    Route::post("post" , [UnitController::class , "store"])->name("store.unit");
+    Route::get("create/{id}" , [UnitController::class , "create"])->name("create.video");
+    // Route::post("save" , [UnitController::class , "store"])->name("store.video");
     //videos
     Route::get("video" , [VideoController::class , "index"])->name("teacher.video");
-    Route::post("video" , [VideoController::class , "store"])->name("store.video");
+    Route::get("teachervideo/{id}" , [VideoController::class , "show"])->name("show.video");
+    // Route::post("video" , [VideoController::class , "store"])->name("store.video");
+    Route::get("editvideo/{id}" , [VideoController::class , "edit"])->name("edit.video");
+    Route::post("updatevideo" , [VideoController::class , "update"])->name("update.video");
     Route::post("video/{id}" , [VideoController::class , "destroy"])->name("delete.video");
 
     //Media library routes
-Route::get('/medialibrary', [App\Http\Controllers\MediaLibraryController::class, 'mediaLibrary'])->name('media-library');
+    Route::get('/medialibrary', [App\Http\Controllers\MediaLibraryController::class, 'mediaLibrary'])->name('media-library');
 
-//FILE UPLOADS CONTROLER
-Route::post('medialibrary/upload', [App\Http\Controllers\UploaderController::class, 'upload'])->name('file-upload');
-Route::post('medialibrary/delete', [App\Http\Controllers\UploaderController::class, 'delete'])->name('file-delete');
+    //FILE UPLOADS CONTROLER
+    Route::post('medialibrary/upload', [App\Http\Controllers\UploaderController::class, 'upload'])->name('file-upload');
+    Route::post('medialibrary/delete', [App\Http\Controllers\UploaderController::class, 'delete'])->name('file-delete');
 
 
 });

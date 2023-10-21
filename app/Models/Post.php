@@ -26,7 +26,5 @@ class Post extends Model
     return $this->$value = date_format(date_create($value) , "Y-m-d H:i:s");
    }
 
-   public function getPhotoAttribute($value){
-    return $this->$value = Storage::url($value);
-   }
+
 }

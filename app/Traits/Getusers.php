@@ -1,25 +1,28 @@
 <?php
+
 namespace App\Traits;
 
 use App\Models\Teacher;
 use App\Models\User;
-trait Getusers{
-    public function guarduser(){
-        $request = request();
-        // dd($request);
-        if($request->is("teacher/*")){
-            return "teacher";
-        }else{
-            return "web";
-        }
+
+trait Getusers
+{
+    private function isTeacher()
+    {
+        return request()->is("teacher/*");
     }
-    public function usersclass(){
-        $request = request();
-        // dd($request);
-        if($request->is("teacher/*")){
-            return Teacher::class;
-        }else{
-            return User::class;
-        }
+
+    public function guarduser()
+    {
+        return $this->isTeacher() ? "teacher" : "web";
+    }
+
+    public function usersclass()
+    {
+        return $this->isTeacher() ? Teacher::class : User::class;
+    }
+
+    public function tableName(){
+        return $this->isTeacher() ? "teachers" : "users";
     }
 }

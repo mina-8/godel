@@ -27,4 +27,14 @@ class Teacher extends Authenticatable
   public function video(){
     return $this->hasOne(Video::class);
   }
+
+  public function phase(){
+    return $this->hasOne(Phase::class);
+  }
+  public function unit(){
+    return $this->hasOne(Unit::class);
+  }
+  public function units(){
+    return $this->hasMany(Unit::class);
+  }
 }

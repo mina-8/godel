@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Models\Phase;
 use App\Models\Post;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
@@ -37,18 +39,15 @@ class PostController extends Controller
     public function store(Request $request)
     {
 
-        $validate = $request->validate([
-            "post" => "required",
-            "file" => "required|image"
-        ]);
-        $data = request()->file("file")->store(Auth::guard('teacher')->user()->id);
+        // $data = request()->file("file")->store(Auth::guard('teacher')->user()->id);
 
-        Post::create([
-            "content" => $validate["post"],
-            "photo" => $data,
-            "teacher_id" => Auth::guard('teacher')->user()->id
-        ]);
-        return Redirect::route("teacher.dashboard");
+        // Post::create([
+        //     "content" => $validate["post"],
+        //     "photo" => "null",
+        //     "teacher_id" => Auth::guard('teacher')->user()->id
+        // ]);
+        // return Redirect::route("teacher.dashboard");
+
     }
 
     /**
