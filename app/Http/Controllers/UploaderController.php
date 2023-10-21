@@ -39,7 +39,10 @@ class UploaderController extends Controller
     public function upload(Request $request)
     {  //from web route
         // create the file receiver
+<<<<<<< HEAD
 
+=======
+>>>>>>> e17276eaeeadfad99fd0f13f5914e94533997c54
         $receiver = new FileReceiver("file", $request, HandlerFactory::classFromRequest($request));
 
         // check if the upload is success, throw exception or return response you need
@@ -92,6 +95,7 @@ class UploaderController extends Controller
         $finalPath = storage_path("app/" . $filePath);
 
         $fileSize = $file->getSize();
+<<<<<<< HEAD
 
         // move the file name
 
@@ -122,13 +126,22 @@ class UploaderController extends Controller
             "exam_video" => $validate["exam_video"],
             "price_video" => $validate["price_video"]
         ]);
+=======
+        // move the file name
+        $file->move($finalPath, $fileName);
+        // $file->store($filePath);
+        $url_base = 'storage/upload/medialibrary/' . $user_obj . "/" . $fileName;
+>>>>>>> e17276eaeeadfad99fd0f13f5914e94533997c54
 
         return response()->json([
             'path' => $filePath,
             'name' => $fileName,
             'mime_type' => $mime
         ]);
+<<<<<<< HEAD
 
+=======
+>>>>>>> e17276eaeeadfad99fd0f13f5914e94533997c54
     }
 
     /**

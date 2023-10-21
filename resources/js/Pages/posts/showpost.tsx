@@ -73,9 +73,13 @@ const Show = ({ posts }: any) => {
                                 <div>name : {post.teacher.name}</div>
 
                                 <Image width={200} src={post.photo} />
+<<<<<<< HEAD
                                 <video src={post.photo}>
 
                                 </video>
+=======
+
+>>>>>>> e17276eaeeadfad99fd0f13f5914e94533997c54
                                 <br></br>
                                 <button onClick={() => deletpost(post.id)}>
                                     delete
