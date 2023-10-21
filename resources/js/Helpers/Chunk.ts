@@ -8,12 +8,8 @@ var videoId = "";
 var playerUrl = "";
 export async function chunkFileUploader(
     file: File,
-<<<<<<< HEAD
     progress: (percent: number) => void,
     title : any = ""
-=======
-    progress: (percent: number) => void
->>>>>>> e17276eaeeadfad99fd0f13f5914e94533997c54
 ) {
     // //get the file name to name the file.  If we do not name the file, the upload will be called 'blob'
     const numberofChunks = Math.ceil(file.size / chunkSize);
@@ -21,39 +17,25 @@ export async function chunkFileUploader(
     // //     "There will be " + numberofChunks + " chunks uploaded.";
     let start = 0;
     for (let i = 0; i < numberofChunks; i++) {
-<<<<<<< HEAD
         await createChunk(start, file , title);
-=======
-        await createChunk(start, file);
->>>>>>> e17276eaeeadfad99fd0f13f5914e94533997c54
         start += chunkSize;
         progress(Math.round((i / numberofChunks) * 100));
     }
 }
 
-<<<<<<< HEAD
 async function createChunk(start: number, file: File , title="") {
-=======
-async function createChunk(start: number, file: File) {
->>>>>>> e17276eaeeadfad99fd0f13f5914e94533997c54
     const filename = file.name;
     const chunkEnd = Math.min(start + chunkSize, file.size);
     const chunk = file.slice(start, chunkEnd);
     console.log(
         "i created a chunk of video " + start + "-" + chunkEnd + " minus 1	"
     );
-<<<<<<< HEAD
     console.log(file.type)
     console.log(title)
     const chunkForm = new FormData();
 
     chunkForm.append("file", chunk, filename);
     chunkForm.append("title" ,title)
-=======
-    const chunkForm = new FormData();
-
-    chunkForm.append("file", chunk, filename);
->>>>>>> e17276eaeeadfad99fd0f13f5914e94533997c54
     console.log(chunkForm.get("file"));
 
     const blobEnd = chunkEnd - 1;

@@ -2,11 +2,7 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { router, useForm } from "@inertiajs/react";
-<<<<<<< HEAD
 import { Button, Form, Input, Modal, Progress, Upload, UploadProps } from "antd";
-=======
-import { Button, Form, Modal, Progress, Upload, UploadProps } from "antd";
->>>>>>> e17276eaeeadfad99fd0f13f5914e94533997c54
 import {
     FormEventHandler,
     useCallback,
@@ -17,7 +13,6 @@ import {
 } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 import { chunkFileUploader } from "@/Helpers/Chunk";
-<<<<<<< HEAD
 import axios from "axios";
 export default function Post() {
 
@@ -60,34 +55,6 @@ export default function Post() {
     };
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-=======
-export default function Post() {
-    const [form] = Form.useForm();
-    const [percent, setPercent] = useState(0);
-    const onFinish = async (values: any) => {
-        console.log("Success:", values);
-        const file: File | undefined =
-            values.upload?.fileList[0]?.originFileObj;
-        if (file == undefined) return;
-        showModal();
-        await chunkFileUploader(file, setPercent);
-        closeModal();
-        setPercent(0);
-        form.resetFields();
-    };
-    const uploadProps: UploadProps = {
-        customRequest: ({ file, onSuccess }) => {
-            setTimeout(() => {
-                if (onSuccess) {
-                    onSuccess("ok");
-                }
-            }, 0);
-        },
-        listType: "picture",
-    };
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
->>>>>>> e17276eaeeadfad99fd0f13f5914e94533997c54
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -116,7 +83,6 @@ export default function Post() {
                 form={form}
                 autoComplete="off"
             >
-<<<<<<< HEAD
                 <Form.Item>
                 <TextInput
                     id="title"
@@ -128,8 +94,6 @@ export default function Post() {
                     onChange={handelchange}
                     />
                 </Form.Item>
-=======
->>>>>>> e17276eaeeadfad99fd0f13f5914e94533997c54
                 <Form.Item
                     name="upload"
                     label="Upload"
